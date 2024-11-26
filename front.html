@@ -3,60 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Front Page</title>
+    <title>Simple Login</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: linear-gradient(to bottom right, #007BFF, #00C6FF);
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
         }
-        .content {
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
             text-align: center;
         }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
         }
-        p {
-            font-size: 1.2rem;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .buttons {
-            margin-top: 20px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        .button {
-            background-color: #ffffff;
-            color: #007BFF;
+        .form-group input {
+            width: 92.5%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
-            margin: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            display: inline-block;
         }
-        .button:hover {
-            background-color: #f4f4f4;
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+        .nav-button {
+            margin-top: 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #5a6268;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>Welcome to My Page</h1>
-        <p>Explore the login page or learn more about the site.</p>
-        <div class="buttons">
-            <!-- Link to the login page -->
-            <a href="index.html" class="button">Go to Login</a>
-            <!-- Add another button for navigation if needed -->
-            <a href="about.html" class="button">Learn More</a>
-        </div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+            <p id="errorMessage" class="error" style="display: none;">Invalid credentials. Please try again.</p>
+        </form>
+        <!-- Navigation to Home -->
+        <a href="home.html" class="nav-button">Go to Home</a>
     </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Event listener for form submission
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Example validation
+            if (username === "admin" && password === "password123") {
+                window.location.href = "home.html"; // Redirect to your main page
+            } else {
+                errorMessage.style.display = "block"; // Show error message
+            }
+        });
+
+        // Event listener for hiding error message when typing
+        usernameInput.addEventListener('input', hideErrorMessage);
+        passwordInput.addEventListener('input', hideErrorMessage);
+
+        function hideErrorMessage() {
+            errorMessage.style.display = "none";
+        }
+    </script>
 </body>
 </html>
